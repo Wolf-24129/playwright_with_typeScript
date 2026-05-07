@@ -6,6 +6,7 @@ on:
     branches: [main, master]
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  CI: "true"
 jobs:
   test:
     timeout-minutes: 60
@@ -22,11 +23,22 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+      - name: Install Allure CLI
+        run: npm install -g allure-commandline
       - name: Run Playwright tests
-        run: npx playwright test --workers=4
+        run: npx playwright test --workers=4 --reporter=list
+      - name: Generate Allure Report
+        if: always()
+        run: allure generate allure-results --clean -o allure-report
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report/
           retention-days: 30
