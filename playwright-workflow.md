@@ -26,7 +26,7 @@ The job runs on `ubuntu-latest` and has a 60-minute timeout.
 5. Install the Allure CLI with `npm install -g allure-commandline`
 6. Run Playwright tests with `npx playwright test --workers=4 --reporter=list`
 7. Generate the Allure report from `allure-results`
-8. Upload the generated `playwright-report/` and `allure-report/` artifacts
+8. Upload the generated `playwright-report/` and `allure-report/` artifacts10. Publish the Allure report to the `gh-pages` branch via `simple-elf/allure-report-action@master`
 
 ## Important notes
 
@@ -91,4 +91,13 @@ jobs:
           name: allure-report
           path: allure-report/
           retention-days: 30
+
+      - name: Publish Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_history: allure-history
+          keep_reports: 20
 ```

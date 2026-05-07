@@ -42,3 +42,11 @@ jobs:
           name: allure-report
           path: allure-report/
           retention-days: 30
+      - name: Publish Allure Report
+        if: always()
+        uses: simple-elf/allure-report-action@master
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_history: allure-history
+          keep_reports: 20
