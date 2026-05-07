@@ -1,0 +1,35 @@
+# .gitignore for Playwright Project
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Test Results
+test-results/
+allure-results/
+allure-report/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Playwright
+.auth/
